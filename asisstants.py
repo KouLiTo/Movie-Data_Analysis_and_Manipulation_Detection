@@ -36,3 +36,6 @@ def save_graph(graph_name, sns_plot, figsize=(12, 4), dpi=200):
     except Exception as e:
         print(e)
 
+
+def find_difference(num1: float, num2: float) -> float:
+    return round(num1 - num2, 1)
