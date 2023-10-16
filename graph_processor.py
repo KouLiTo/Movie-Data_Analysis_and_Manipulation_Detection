@@ -17,6 +17,7 @@ from data_preparetor import all_scores_df, fandango_df
 
 
 # identifying relationship between RATING and VOTES from fandango_df
+fig1 = plt.figure()
 rating_vote = sns.scatterplot(data=fandango_df, x="RATING", y="VOTES")
 save_graph(graph_name="fandango_rating_vote.png", sns_plot=rating_vote)
 
@@ -226,6 +227,7 @@ print(
     f"\n\nMEAN VALUE OF STANDARD DEVIATION VALUES FOR ALL RATINGS FROM ALL PLATFORMS WITH EXCEPTION FOR FANDANGO: {mean_std_dev}"
 )
 
+
 # checking the ten worst films by RottenTomatoes in comparison with Fandango and making a csv report
 ten_worst_rotten_films = final_customized_df.nsmallest(10, "RT_Norm")[
     ["FILM", "RT_Norm", "RATING", "STARS"]
@@ -250,7 +252,7 @@ print(
 
 
 # building a final graph to show the overall picture of possible manipulations made by Fandango 2015
-fig, ax = plt.subplots(figsize=(15, 6), dpi=150)
+fig10, ax = plt.subplots(figsize=(15, 6), dpi=150)
 final_graph = sns.kdeplot(
     data=final_customized_df.drop("FILM", axis=1),
     clip=[0, 5],
@@ -260,4 +262,13 @@ final_graph = sns.kdeplot(
 )
 move_legend(ax, "upper left")
 save_graph(graph_name="final_graph.png", sns_plot=final_graph, figsize=(15, 6), dpi=150)
+# plt.show()
+
+
+# let us have a general impression how films are rated across platforms (added as an optional one)
+fig11 = plt.figure()
+cluster_map = sns.clustermap(
+    data=final_customized_df.set_index("FILM"), cmap="mako", col_cluster=False
+)
+save_graph(graph_name="cluster_film_map.png", sns_plot=cluster_map)
 # plt.show()
